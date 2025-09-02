@@ -21,8 +21,8 @@ def index(request: HttpRequest) -> HttpResponse:
 
 def post_detail(request: HttpRequest, id: int) -> HttpResponse:
     post = get_object_or_404(
-        Post.objects.select_related('category'), 
-        id=id, 
+        Post.objects.select_related('category'),
+        id=id,
         is_published=True,
         pub_date__lte=timezone.now(),
         category__is_published=True
