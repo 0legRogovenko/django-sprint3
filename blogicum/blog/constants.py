@@ -1,0 +1,1 @@
+LAST_POSTS_COUNT = 5
