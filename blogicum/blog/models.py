@@ -3,12 +3,19 @@ from typing import Optional
 from django.contrib.auth import get_user_model
 from django.db import models
 
+from blog.constants import MAX_TITLE_LENGTH
+
 
 User = get_user_model()
 
 
-class BaseModel(models.Model):
-    """Базовая модель с общими полями."""
+class TimestampedModel(models.Model):
+    """Базовая модель с общими полями.
+
+    Attributes:
+        is_published: Статус публикации
+        created_at: Дата и время создания
+    """
 
     is_published: bool = models.BooleanField(
         default=True,
@@ -24,8 +31,14 @@ class BaseModel(models.Model):
         abstract = True
 
 
-class Category(BaseModel):
-    """Модель категории для публикаций."""
+class Category(TimestampedModel):
+    """Модель категории для публикаций.
+
+    Attributes:
+        title: Заголовок категории
+        description: Описание категории
+        slug: Уникальный идентификатор для URL
+    """
 
     title: str = models.CharField(
         max_length=256,
@@ -50,11 +63,15 @@ class Category(BaseModel):
 
     def __str__(self) -> str:
         """Возвращает строковое представление категории."""
-        return self.title[:30]
+        return self.title[:MAX_TITLE_LENGTH]
 
 
-class Location(BaseModel):
-    """Модель местоположения публикации."""
+class Location(TimestampedModel):
+    """Модель местоположения публикации.
+    
+    Attributes:
+        name: Название места
+    """
 
     name: str = models.CharField(
         max_length=256,
@@ -70,8 +87,17 @@ class Location(BaseModel):
         return self.name
 
 
-class Post(BaseModel):
-    """Модель публикации в блоге."""
+class Post(TimestampedModel):
+    """Модель публикации в блоге.
+    
+    Attributes:
+        title: Заголовок публикации
+        text: Текст публикации
+        pub_date: Дата и время публикации
+        author: Автор публикации
+        location: Местоположение, связанное с публикацией
+        category: Категория публикации
+    """
 
     title: str = models.CharField(
         max_length=256,
@@ -114,4 +140,4 @@ class Post(BaseModel):
 
     def __str__(self) -> str:
         """Возвращает строковое представление публикации."""
-        return self.title[:30]
+        return self.title[:MAX_TITLE_LENGTH]
