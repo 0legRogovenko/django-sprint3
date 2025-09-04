@@ -6,6 +6,7 @@ from .models import Category, Location, Post
 admin.site.register(Category)
 admin.site.register(Location)
 
+
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
     """Настройки административной панели для модели Post."""
