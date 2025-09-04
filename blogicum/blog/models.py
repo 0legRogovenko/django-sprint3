@@ -68,7 +68,7 @@ class Category(TimestampedModel):
 
 class Location(TimestampedModel):
     """Модель местоположения публикации.
-    
+
     Attributes:
         name: Название места
     """
@@ -89,7 +89,7 @@ class Location(TimestampedModel):
 
 class Post(TimestampedModel):
     """Модель публикации в блоге.
-    
+
     Attributes:
         title: Заголовок публикации
         text: Текст публикации
